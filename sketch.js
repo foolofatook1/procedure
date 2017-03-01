@@ -5,7 +5,7 @@ var object;
 var myFont
 
 function preload() {
-    cabin = loadAnimation("CI/background_1.png", "CI/background_2.png");
+    cabin = loadAnimation("CI/background-1.png", "CI/background-2.png");
     ThirstyMan = loadAnimation("CI/ThirstyMan-1.png", "CI/ThirstyMan-2.png");
     DyingMan = loadAnimation("CI/DyingMan_1.png", "CI/DyingMan_2.png");
     object = loadAnimation("CI/object-1.png");
