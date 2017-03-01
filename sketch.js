@@ -2,7 +2,7 @@ var cabin;
 var ThirstyMan;
 var DyingMan;
 var object;
-var myFont
+var myFont;
 
 function preload() {
     cabin = loadAnimation("CI/background-1.png", "CI/background-2.png");
@@ -14,14 +14,25 @@ function preload() {
 
 function setup() {
     createCanvas(800, 800);
-
 }
 
 function draw() {
+    mainScreen(0, 0);
+    openScreen();
+}
+
+function mainScreen() {
     background(255, 0, 0);
     animation(cabin, 400, 400);
     animation(ThirstyMan, 250, 500);
     animation(DyingMan, 500, 500);
     animation(object, 140, 580);
     frameRate(10);
+}
+
+function openScreen() {
+    fill(255, 0, 0);
+    textFont(myFont, 60);
+    textAlign(CENTER);
+    text("*PRESS 'B' TO BEGIN*", 340, 680);
 }
