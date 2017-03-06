@@ -5,14 +5,21 @@ var object;
 var myFont;
 var stageChange_1;
 var stageChange_2;
-var stageChange_3;
 var song;
 var rect_x;
+var rect_x_outline;
+var rect2_x_outline;
 var rect_y;
+var rect_y_outline;
+var rect2_y_outline;
 var rect_h;
+var outline_rect_h;
 var rect_l;
+var rect2_l;
+var outline_rect_l;
 var object_x;
 var object_y;
+var rect_l_change;
 
 function preload() {
     cabin = loadAnimation("CI/background-1.png", "CI/background-2.png");
@@ -27,18 +34,25 @@ function setup() {
     createCanvas(800, 800);
     stageChange_1 = 0;
     stageChange_2 = 0;
-    stageChange_3 = 0;
-    rect_x = 180;
-    rect_y = 320;
+    rect_x_outline = 180;
+    rect_y_outline = 320;
+    rect2_x_outline = 400;
+    rect2_y_outline = 360;
+    rect_x = 184;
+    rect_y = 323;
+    rect2_x = 404;
+    rect2_y = 363;
+    rect_l = 172;
+    rect2_l = 172;
     outline_rect_l = 180;
-    rect_h = 60;
+    rect_h = 45;
+    outline_rect_h = 52;
     object_x = 140;
     object_y = 580;
     song.setVolume(0.25);
     song.play();
-    //think-- if (stageChange_2 == x){y.play();}
 }
-
+//the game and its change conditions
 function draw() {
     if (stageChange_1 == 0) {
         mainScreen();
@@ -48,23 +62,18 @@ function draw() {
         mainScreen();
         rulesScreen();
     }
-    if (stageChange_1 == 2) {
+    if (stageChange_2 == 1) {
         mainScreen();
         choiceScreen_1();
         thirstMeter_outline_1();
         thirstMeter_1();
+        thirstMeter_outline_2();
         thirstMeter_2();
         object_x = mouseX;
         object_y = mouseY;
     }
-    if (stageChange_2 == 1) {
-        gameOver();
-    }
-    if (stageChange_3 == 1) {
-        winner();
-    }
 }
-
+//THE BARE IMAGE
 function mainScreen() {
     background(255, 0, 0);
     animation(cabin, 400, 400);
@@ -73,14 +82,14 @@ function mainScreen() {
     animation(object, object_x, object_y);
     frameRate(10);
 }
-
+//THE OPENING SCREEN
 function openScreen() {
     fill(255, 0, 0);
     textFont(myFont, 60);
     textAlign(CENTER);
     text("*PRESS 'B' TO BEGIN*", 340, 680);
 }
-
+//THE SCREEN THAT TELLS YOU THE RULES
 function rulesScreen() {
     fill(255, 0, 0);
     textFont(myFont, 30);
@@ -92,32 +101,22 @@ function rulesScreen() {
     text("WHAT WILL YOU DO?", 10, 100);
     text("TO MAKE A CHOICE CLICK 'C'", 10, 140);
 }
-
+//THE SCREEN IN WHICH YOU PLAY THE GAME
 function choiceScreen_1() {
-    fill(255, 0, 0);
-    textFont(myFont, 36);
-    textAlign(LEFT);
-    text("DO YOU WISH TO SIP THE WATER CONSERVATIVELY, AND SAVE THE REST FOR LATER? Y/N")
     if (mouseX >= 140 && mouseX <= 250 && mouseY >= 400 && mouseY <= 580) {
         fill(255, 0, 0);
         textFont(myFont, 30);
         textAlign(LEFT);
         text("DRINK?", mouseX, mouseY);
     }
-    if (mouseIsPressed && mouseX >= 140 && mouseX <= 250 && mouseY >= 400 && mouseY <= 580) {
-        stageChange_2 += 1;
-    }
     if (mouseX >= 400 && mouseX <= 580 && mouseY >= 460 && mouseY <= 500) {
         fill(255, 0, 0);
         textFont(myFont, 30);
         textAlign(LEFT);
-        text("DRINK?", mouseX, mouseY);
-    }
-    if (mouseIsPressed && mouseX >= 400 && mouseX <= 580 && mouseY >= 460 && mouseY <= 500) {
-        stageChange_3 += 1;
+        text("HELP?", mouseX, mouseY);
     }
 }
-
+//THE PAGE THAT TELLS YOU YOU LOSE AND WHY
 function gameOver() {
     background(0);
     fill(255, 0, 0);
@@ -125,9 +124,9 @@ function gameOver() {
     textAlign(CENTER);
     text("LOSER", 400, 400);
     textSize(40);
-    text("PRESS 'R' TO PLAY AGAIN", 400, 485);
+    text("REFRESH THE PAGE TO PLAY AGAIN", 400, 485);
 }
-
+//THE PAGE THAT TELLS YOU YOU WIN AND WHY
 function winner() {
     background(0);
     fill(66, 244, 69);
@@ -135,61 +134,59 @@ function winner() {
     textAlign(CENTER);
     text("WINNER", 400, 400);
     textSize(40);
-    text("PRESS 'R' TO PLAY AGAIN", 400, 485);
+    text("REFRESH THE PAGE TO PLAY AGAIN", 400, 485);
 }
-
+//THE OUTLINE OF THE THIRST METER FOR THE THIRSTY MAN
 function thirstMeter_outline_1() {
+    stroke(0);
     strokeWeight(8);
-    rect(rect_x, rect_y, outline_rect_l, rect_h);
+    fill(255, 0, 0);
+    rect(rect_x_outline, rect_y_outline, outline_rect_l, outline_rect_h);
 }
-
+//THE THIRST METER ITSELF && CLICKING ON THIRSTY MAN
 function thirstMeter_1() {
     fill(0, 255, 0);
+    noStroke();
     rect(rect_x, rect_y, rect_l, rect_h);
-    push();
-    //frameRate = 50;
-    rect_l = frameCount;
-    if (rect_l >= outline_rect_l) {
-        fill(255, 0, 0);
-        textFont(myFont, 60);
-        textAlign(LEFT);
-        text("THIRSTY", rect_x + 10, rect_y + rect_h - 10);
-        rect_l = outline_rect_l;
-        pop();
+    fill(255, 0, 0);
+    textFont(myFont, 60);
+    textAlign(LEFT);
+    text("THIRST", rect_x + 20, rect_y + rect_h - 13);
+    if (mouseIsPressed && mouseX >= 140 && mouseX <= 250 && mouseY >= 400 && mouseY <= 580) {
+        rect_l -= 20;
     }
-    else if (rect_l >= outline_rect_l) {
-        frameCount == 0;
-    }
+}
+
+function thirstMeter_outline_2() {
+    stroke(0);
+    strokeWeight(8);
+    fill(255, 0, 0);
+    rect(rect2_x_outline, rect2_y_outline, outline_rect_l, outline_rect_h);
 }
 
 function thirstMeter_2() {
-    if (frameCount % 10 == 0) {
-        fill(255, 0, 0);
-        textFont(myFont, 80);
-        text("HELP!", 520, 400);
+    fill(0, 255, 0);
+    noStroke();
+    rect(rect2_x, rect2_y, rect2_l, rect_h);
+    fill(255, 0, 0);
+    textAlign(LEFT);
+    text("THIRST", rect2_x + 20, rect2_y + rect_h - 13);
+    if (mouseIsPressed && mouseX >= 400 && mouseX <= 580 && mouseY >= 460 && mouseY <= 500) {
+        rect2_l -= 20;
+    }
+    if (rect_l <= 0) {
+        gameOver();
+    }
+    if (rect2_l <= 0) {
+        winner();
     }
 }
-
+//PRESSING KEYS IS IMPORTANT
 function keyPressed() {
     if (key === "B") {
         stageChange_1 += 1;
     }
     if (key === "C") {
-        stageChange_1 += 1;
-        frameCount === 0;
-    }
-    if (key === "D") {
         stageChange_2 += 1;
     }
-    if (key === "R") {
-        stageChange_1 = 0;
-        stageChange_2 = 0;
-        stageChange_3 = 0;
-        object_x = 140;
-        object_y = 580;
-    }
-}
-
-function reset() {
-    frameCount === 0;
 }
