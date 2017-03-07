@@ -108,7 +108,7 @@ function draw() {
         object_x = mouseX;
         object_y = mouseY;
         waterLevel()
-        spillWater();
+       // spillWater();
     }
 }
 //THE BARE IMAGE
