@@ -84,8 +84,8 @@ function setup() {
     object_x = 140;
     object_y = 580;
     clickCounter = 0;
-    //song.setVolume(0.25);
-    //song.play();
+    song.setVolume(0.25);
+    song.play();
 }
 //the game and its change conditions
 function draw() {
@@ -109,7 +109,6 @@ function draw() {
         object_y = mouseY;
         waterLevel()
         spillWater();
-
     }
 }
 //THE BARE IMAGE
@@ -260,8 +259,8 @@ function waterLevel() {
 }
 //SPILLING THE WATER
 //function spillWater() {
-  //  if (mouseIsPressed && mouseX >= 100 && mouseX <= width - 100 && mouseY >= height && mouseY <= height - 200) {
-  //      object = object9;
+//  if (mouseIsPressed && mouseX >= 100 && mouseX <= width - 100 && mouseY >= height && mouseY <= height - 200) {
+//      object = object9;
 //    }
 //}
 //PRESSING KEYS IS IMPORTANT
