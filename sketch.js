@@ -107,8 +107,7 @@ function draw() {
         thirstMeter_2();
         object_x = mouseX;
         object_y = mouseY;
-        waterLevel()
-       // spillWater();
+        waterLevel();
     }
 }
 //THE BARE IMAGE
@@ -160,7 +159,13 @@ function gameOver() {
     fill(255, 0, 0);
     textFont(myFont, 80);
     textAlign(CENTER);
-    text("LOSER", 400, 400);
+    text("LOSER", 400, 200);
+    textSize(32);
+    text("HAVING DRANK ALL THE WATER, OR ATTEMPTED TO SHARE IT,", 400, 270);
+    text("YOU HAVE DONE THE WRONG THING!", 400, 285);
+    text("THE DUTIFUL THING WOULD HAVE BEEN TO GIVE IT", 400, 300);
+    text(" TO THE DYING PERSON FIRST.", 400, 315);
+    text("BETTER LUCK NEXT TIME.", 400, 330);
     textSize(40);
     text("REFRESH THE PAGE TO PLAY AGAIN", 400, 485);
 }
@@ -170,7 +175,14 @@ function winner() {
     fill(66, 244, 69);
     textFont(myFont, 80);
     textAlign(CENTER);
-    text("WINNER", 400, 400);
+    text("WINNER", 400, 200);
+    textSize(32);
+    text("AS YOU OFFER HIM THE WATER", 400, 270);
+    text("HE SNATCHES IT FROM YOUR HANDS", 400, 285);
+    text("AND PROCEEDS TO CHUG IT.", 400, 300);
+    text("HAVING DRANK TOO FAST, HE BEGINS TO CHOKE, THEN DIES.", 400, 315);
+    text("YOU TOO WILL NOW DIE, FOR THERE IS NO MORE WATER LEFT.", 400, 330);
+    text("BUT AT LEAST YOU DID THE RIGHT THING; ACCORDING TO KANT.", 400, 345);
     textSize(40);
     text("REFRESH THE PAGE TO PLAY AGAIN", 400, 485);
 }
@@ -195,14 +207,14 @@ function thirstMeter_1() {
         clickCounter += 1;
     }
 }
-
+//THE OUTLINE OF THE THIRST METER FOR THE DYING MAN
 function thirstMeter_outline_2() {
     stroke(0);
     strokeWeight(8);
     fill(0, 255, 0);
     rect(rect2_x_outline, rect2_y_outline, outline_rect_l, outline_rect_h);
 }
-
+//THE THIRST METTER ITSELF && CLICKING ON THE DYING MAN
 function thirstMeter_2() {
     fill(255, 0, 0);
     noStroke();
@@ -210,7 +222,11 @@ function thirstMeter_2() {
     fill(0, 255, 0);
     textAlign(LEFT);
     text("THIRST", rect2_x + 20, rect2_y + rect_h - 13);
-    if (mouseIsPressed && mouseX >= 400 && mouseX <= 580 && mouseY >= 460 && mouseY <= 500) {
+    if (mouseIsPressed && mouseX >= 400 && mouseX <= 580 && mouseY >= 460 && mouseY <= 500 && clickCounter == 0) {
+        rect2_l -= 172;
+        clickCounter += 9;
+    }
+    else if (mouseIsPressed && mouseX >= 400 && mouseX <= 580 && mouseY >= 460 && mouseY <= 500 && clickCounter > 0) {
         rect2_l -= 20;
         clickCounter += 1;
     }
@@ -257,12 +273,6 @@ function waterLevel() {
         winner();
     }
 }
-//SPILLING THE WATER
-//function spillWater() {
-//  if (mouseIsPressed && mouseX >= 100 && mouseX <= width - 100 && mouseY >= height && mouseY <= height - 200) {
-//      object = object9;
-//    }
-//}
 //PRESSING KEYS IS IMPORTANT
 function keyPressed() {
     if (key === "B") {
